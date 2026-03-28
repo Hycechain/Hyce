@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYCE</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b0b0f;
+  color:white;
+}
+
+.purple{color:#8b5cf6;}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 15px;
+  background:#000;
+  position:fixed;
+  width:100%;
+  z-index:1000;
+}
+
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.logo{color:#8b5cf6;font-weight:bold;}
+
+.btn{
+  background:#8b5cf6;
+  padding:6px 14px;
+  border-radius:15px;
+  border:none;
+  color:white;
+  box-shadow:0 0 12px #8b5cf6;
+}
+
+/* HERO */
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:90px 15px 20px;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.hero img{
+  width:100%;
+  max-width:200px;
+  border-radius:12px;
+  box-shadow:0 0 20px #8b5cf6;
+}
+
+.hero-text{flex:1; min-width:150px;}
+
+.start-btn{
+  margin-top:10px;
+  padding:6px 12px;
+  background:#8b5cf6;
+  border-radius:12px;
+  color:white;
+  box-shadow:0 0 10px #8b5cf6;
+  border:none;
+}
+
+/* ACTIVE USERS */
+.active{
+  text-align:center;
+  margin:10px;
+  color:#aaa;
+}
+
+/* CRYPTO STATIC */
+.crypto{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.crypto img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  margin:5px;
+  background:#111;
+  padding:5px;
+  box-shadow:0 0 10px #8b5cf6;
+}
+
+/* STOCKS */
+.stock{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+  margin:6px 10px;
+  border-radius:10px;
+  background:#0f0f14;
+}
+
+.stock:hover{box-shadow:0 0 25px #8b5cf6;}
+
+.chart{
+  width:50px;
+  height:20px;
+  border-radius:5px;
+  background:linear-gradient(to top right,#00ff88,transparent);
+}
+
+.red-chart{
+  background:linear-gradient(to top right,#ff4d4d,transparent);
+}
+
+.green{color:#00ff88;}
+.red{color:#ff4d4d;}
+
+/* NFT GRID FIXED */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:10px;
+}
+
+.card{
+  aspect-ratio:1/1;
+}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 0 10px #8b5cf6;
+}
+
+/* TRADERS */
+.traders{
+  display:flex;
+  overflow:auto;
+  padding:10px;
+}
+
+.trader{
+  min-width:120px;
+  background:#111;
+  margin-right:10px;
+  border-radius:10px;
+  padding:10px;
+  text-align:center;
+  box-shadow:0 0 10px #8b5cf6;
+}
+
+.trader img{
+  width:60px;
+  border-radius:50%;
+}
+
+/* NEWS */
+.news{
+  padding:10px;
+}
+
+.news-card{
+  background:#111;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:10px;
+  box-shadow:0 0 8px #8b5cf6;
+}
+
+/* TESTIMONIAL POP */
+.popup{
+  position:fixed;
+  bottom:10px;
+  left:10px;
+  background:#111;
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 0 10px #8b5cf6;
+  font-size:12px;
+}
+
+/* FOOTER */
+footer{
+  background:#000;
+  padding:20px;
+  text-align:center;
+  margin-top:20px;
+}
+
+footer a{
+  color:#8b5cf6;
+  text-decoration:none;
+  margin:0 8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">HYCE</div>
+  <button class="btn">Login</button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <img src="https://i.ibb.co/SXqdnP5C/IMG-3330.jpg">
+  <div class="hero-text">
+    <h3>Discover, Collect & Sell <span class="purple">NFTs</span></h3>
+    <p>Earn gas fees, trade NFTs and explore <span class="purple">stocks</span>.</p>
+    <button class="start-btn">Start Now</button>
+  </div>
+</div>
+
+<div class="active" id="users">642 members online</div>
+
+<!-- CRYPTO -->
+<div class="crypto">
+  <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/btc.png">
+  <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/eth.png">
+  <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/usdt.png">
+  <img src="https://cdn.jsdelivr.net/gh/spothq/cryptocurrency-icons@master/32/color/ltc.png">
+</div>
+
+<!-- STOCKS -->
+<h3 style="padding:10px;">Trade <span class="purple">Stocks & Crypto</span></h3>
+
+<div class="stock"><div>DE</div><div class="chart red-chart"></div><div class="red">-3.44</div></div>
+<div class="stock"><div>DKNG</div><div class="chart red-chart"></div><div class="red">-0.37</div></div>
+<div class="stock"><div>DELL</div><div class="chart"></div><div class="green">+7.55</div></div>
+<div class="stock"><div>SOXL</div><div class="chart"></div><div class="green">+0.83</div></div>
+<div class="stock"><div>DVN</div><div class="chart"></div><div class="green">+0.63</div></div>
+<div class="stock"><div>SMCI</div><div class="chart"></div><div class="green">+0.44</div></div>
+
+<!-- NFT -->
+<h3 style="padding:10px;">NFTs</h3>
+
+<div class="grid">
+  <div class="card"><img src="https://i.ibb.co/G39tCZL5/IMG-3345.jpg"></div>
+  <div class="card"><img src="https://i.ibb.co/DHR1xWjy/IMG-3340.jpg"></div>
+  <div class="card"><img src="https://i.ibb.co/MymBZV9N/IMG-3334.jpg"></div>
+  <div class="card"><img src="https://i.ibb.co/4wQ5fjwR/IMG-3335.jpg"></div>
+  <div class="card"><img src="https://i.ibb.co/Zp6V4zND/IMG-3331.webp"></div>
+  <div class="card"><img src="https://i.ibb.co/7JHJZd1g/IMG-3341.jpg"></div>
+</div>
+
+<!-- TRADERS -->
+<h3 style="padding:10px;">Top Traders</h3>
+
+<div class="traders">
+  <div class="trader"><img src="https://i.pravatar.cc/100?11"><p>Alex<br><span class="green">78%</span></p></div>
+  <div class="trader"><img src="https://i.pravatar.cc/100?22"><p>Mike<br><span class="green">81%</span></p></div>
+  <div class="trader"><img src="https://i.pravatar.cc/100?33"><p>Sara<br><span class="green">74%</span></p></div>
+</div>
+
+<!-- NEWS -->
+<h3 style="padding:10px;">Market News</h3>
+
+<div class="news">
+  <div class="news-card">Bitcoin surges as investor confidence grows</div>
+  <div class="news-card">Global stocks show mixed reactions</div>
+  <div class="news-card">NFT trading volume increases rapidly</div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">ID: 123ABC just received $120</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 HYCE. All rights reserved.</p>
+  <a href="#">About</a>
+  <a href="#">Support</a>
+  <a href="#">Terms</a>
+</footer>
+
+<script>
+/* USERS COUNTER */
+setInterval(()=>{
+  let num = Math.floor(Math.random()*200)+500;
+  document.getElementById("users").innerText = num+" members online";
+},2000);
+
+/* FAKE TESTIMONIAL */
+setInterval(()=>{
+  let id = Math.random().toString(36).substring(2,8).toUpperCase();
+  let amount = Math.floor(Math.random()*500)+50;
+  document.getElementById("popup").innerText = "ID: "+id+" just received $"+amount;
+},1000);
+</script>
+
+</body>
+</html>
