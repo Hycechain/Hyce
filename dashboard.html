@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <div class="points-card">
+    <h2>Your Points</h2>
+    <h1 id="points">0</h1>
+  </div>
+
+  <div class="tasks" id="tasks"></div>
+
+</div>
+
+<script>
+let points = localStorage.getItem("points") || 0;
+document.getElementById("points").innerText = points;
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+// DEMO TASKS IF EMPTY
+if(tasks.length === 0){
+  tasks = [
+    {name:"Visit Site", link:"#", points:100},
+    {name:"Watch Video", link:"#", points:100},
+    {name:"Complete Survey", link:"#", points:100},
+  ];
+}
+
+let container = document.getElementById("tasks");
+
+tasks.forEach((task, i) => {
+  let div = document.createElement("div");
+  div.className = "task";
+  div.innerHTML = `<p>${task.name}</p>`;
+  
+  div.onclick = () => {
+    window.open(task.link);
+    points = parseInt(points) + task.points;
+    localStorage.setItem("points", points);
+    document.getElementById("points").innerText = points;
+  };
+
+  container.appendChild(div);
+});
+</script>
+
+</body>
+</html>

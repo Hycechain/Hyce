@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HYCE Login</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { margin:0; font-family: Arial; background: #0b0f1a; color: white; }
+  .auth-container { max-width: 320px; margin: 80px auto; text-align: center; padding: 20px; background:#111827; border-radius: 12px; }
+  .auth-container h2 { margin-bottom: 20px; }
+  .auth-container input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; }
+  .auth-container button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #7c3aed; color: white; cursor: pointer; font-size: 16px; }
+  .auth-container button.outline { background: transparent; border: 1px solid #7c3aed; }
+  .error { color: red; min-height: 20px; margin: 5px 0; }
+  .link { font-size: 12px; opacity: 0.7; cursor: pointer; }
+</style>
+</head>
+
+<body>
+
+<div class="auth-container">
+  <h2>Welcome Back</h2>
+
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+
+  <p id="error" class="error"></p>
+
+  <button onclick="login()">Login</button>
+  <button class="outline" onclick="signup()">Sign Up</button>
+
+  <p class="link" onclick="forgotPassword()">Forgot Password?</p>
+</div>
+
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js"></script>
+
+<script>
+  // 🔹 Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAYKQJKBlQGQvf63VvDm37XKkJ74Ow7crg",
+    authDomain: "hyce-rewards.firebaseapp.com",
+    projectId: "hyce-rewards",
+    storageBucket: "hyce-rewards.firebasestorage.app",
+    messagingSenderId: "996030570463",
+    appId: "1:996030570463:web:a6530f715689927e9fee6a"
+  };
+
+  // 🔹 Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+<script>
+  // 🔹 LOGIN FUNCTION
+  async function login() {
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let error = document.getElementById("error");
+
+    if (!username || !password) {
+      error.innerText = "Please fill all fields";
+      return;
+    }
+
+    error.innerText = "Checking...";
+
+    try {
+      const snapshot = await db.collection("users")
+        .where("username", "==", username)
+        .where("password", "==", password)
+        .get();
+
+      if (snapshot.empty) {
+        error.innerText = "Invalid username or password";
+      } else {
+        const user = snapshot.docs[0];
+        localStorage.setItem("userId", user.id);
+        window.location.href = "dashboard.html";
+      }
+    } catch (err) {
+      console.error(err);
+      error.innerText = "Error connecting to database";
+    }
+  }
+
+  // 🔹 SIGN UP FUNCTION
+  async function signup() {
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let error = document.getElementById("error");
+
+    if (!username || !password) {
+      error.innerText = "Please fill all fields";
+      return;
+    }
+
+    error.innerText = "Creating account...";
+
+    try {
+      // Check if username already exists
+      const check = await db.collection("users").where("username","==",username).get();
+      if(!check.empty){
+        error.innerText = "Username already taken";
+        return;
+      }
+
+      await db.collection("users").add({
+        username: username,
+        password: password,
+        points: 0
+      });
+
+      error.innerText = "Account created. You can login now.";
+    } catch (err) {
+      console.error(err);
+      error.innerText = "Error creating account";
+    }
+  }
+
+  // 🔹 FORGOT PASSWORD (simple alert for now)
+  function forgotPassword(){
+    alert("Contact admin to reset your password.");
+  }
+</script>
+
+</body>
+</html>

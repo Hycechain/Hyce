@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+
+<style>
+body{
+    background:#0d0d0d;
+    color:white;
+    font-family:sans-serif;
+    padding:20px;
+}
+
+.container{
+    max-width:500px;
+    margin:auto;
+}
+
+input, button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+    border:none;
+}
+
+button{
+    background:#8b5cf6;
+    color:white;
+    cursor:pointer;
+}
+
+.task{
+    background:#1a1a1a;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Admin Panel 🔒</h2>
+
+<input type="password" id="key" placeholder="Enter Admin Key">
+<button onclick="unlock()">Unlock</button>
+
+<div id="panel" style="display:none;">
+
+    <h3>Add Task</h3>
+    <input type="text" id="title" placeholder="Task title">
+    <input type="text" id="link" placeholder="CPA link">
+    <button onclick="addTask()">Add Task</button>
+
+    <h3>Tasks</h3>
+    <div id="tasks"></div>
+
+</div>
+
+</div>
+
+<script>
+const ADMIN_KEY = "1234"; // change this
+
+function unlock(){
+    let key = document.getElementById("key").value;
+
+    if(key === ADMIN_KEY){
+        document.getElementById("panel").style.display = "block";
+        loadTasks();
+    } else {
+        alert("Wrong key");
+    }
+}
+
+function addTask(){
+    let title = document.getElementById("title").value;
+    let link = document.getElementById("link").value;
+
+    if(title === "" || link === "") return;
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    tasks.push({title, link});
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    document.getElementById("title").value = "";
+    document.getElementById("link").value = "";
+
+    loadTasks();
+}
+
+function loadTasks(){
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let container = document.getElementById("tasks");
+
+    container.innerHTML = "";
+
+    tasks.forEach((t, i)=>{
+        container.innerHTML += `
+        <div class="task">
+            ${t.title}
+            <br>
+            <button onclick="deleteTask(${i})">Delete</button>
+        </div>`;
+    });
+}
+
+function deleteTask(i){
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks.splice(i,1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    loadTasks();
+}
+</script>
+
+</body>
+</html>
